@@ -1,5 +1,6 @@
 package com.example.springbootc51.controller;
 
+import com.example.springbootc51.dao.inMemory.InMemoryHistoryDAO;
 import com.example.springbootc51.entity.Operation;
 import com.example.springbootc51.entity.User;
 import com.example.springbootc51.service.HistoryService;
@@ -15,11 +16,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.List;
 
 
 @Controller
 @RequestMapping("/calc")
 public class CalculatorController {
+
+    @Autowired
+    InMemoryHistoryDAO inMemoryHistoryDAO;
 
     @Autowired
     HistoryService historyService;
@@ -51,9 +56,8 @@ public class CalculatorController {
         if (session.getAttribute("user") == null) {
             return "redirect:/";
         } else {
-//            List<Operation> operationList = hibernateHistoryDAO.findAllByUser((User) session.getAttribute("user"));
-//            List<Operation> operationList = jpaHistoryDAO.findAllByUser((User) session.getAttribute("user"));
-//            model.addAttribute("userHistory", operationList);
+            List<Operation> operationList = inMemoryHistoryDAO.findAll((User) session.getAttribute("user"));
+            model.addAttribute("userHistory", operationList);
             return "calculator/history";
         }
     }
