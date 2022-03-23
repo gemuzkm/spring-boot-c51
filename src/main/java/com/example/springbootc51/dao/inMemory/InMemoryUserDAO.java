@@ -2,27 +2,29 @@ package com.example.springbootc51.dao.inMemory;
 
 import com.example.springbootc51.entity.User;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
+@Repository
 public class InMemoryUserDAO {
-    private List<User> userList;
+
+    private List<User> userList = new ArrayList<>();;
 
     //add test user
     {
-        userList = new ArrayList<>();
         userList.add(new User(1, "user1", "user1", "user1@gmail.com"));
         userList.add(new User(2, "user2", "user2", "user2@gmail.com"));
         userList.add(new User(3, "user3", "user3", "user3@gmail.com"));
     }
 
-    public List<User> getAll() {
+    public List<User> findAll() {
         return userList;
     }
 
-    public User getById(int id) {
+    public User findById(long id) {
         return userList.stream().filter(user -> user.getId() == id).findAny().orElse(null);
     }
 
@@ -31,14 +33,16 @@ public class InMemoryUserDAO {
         userList.add(user);
     }
 
-    public void update(int id, User updatedUser) {
-        User userToBeUpdated = getById(id);
-        userToBeUpdated.setName(updatedUser.getName());
-        userToBeUpdated.setPassword(updatedUser.getPassword());
-        userToBeUpdated.setEmail(updatedUser.getEmail());
+    public void update(User user) {
+        int useUpdateId = Math.toIntExact(user.getId()) - 1;
+        userList.set(useUpdateId, user);
     }
 
-    public void delete(int id) {
-        userList.removeIf(p -> p.getId() == id);
+    public void remove(User user) {
+        userList.removeIf(p -> p.getId() == user.getId());
+    }
+
+    public User findByUsername(String name) {
+        return userList.stream().filter(p -> p.getName().equals(name)).findAny().orElse(null);
     }
 }
