@@ -1,5 +1,6 @@
 package com.example.springbootc51.validator;
 
+import com.example.springbootc51.dao.inMemory.InMemoryUserDAO;
 import com.example.springbootc51.dto.UserDTO;
 import com.example.springbootc51.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UserValidator {
+
+    @Autowired
+    InMemoryUserDAO inMemoryUserDAO;
 
     // not used
     public boolean isValid(User user) {
@@ -18,13 +22,11 @@ public class UserValidator {
     }
 
     private boolean isValidUserName(UserDTO userDTO) {
-//        return hibernateUserDAO.findAllByName(userDTO.getName()).size() != 0;
-        return true;
+        return inMemoryUserDAO.findByUsername(userDTO.getName()) != null;
     }
 
     private boolean isValidUserPassword(UserDTO userDTO) {
-//        User user = hibernateUserDAO.findByUsername(userDTO.getName());
-//        return user.getPassword().equals(userDTO.getPassword());
-        return  true;
+        User user = inMemoryUserDAO.findByUsername(userDTO.getName());
+        return user.getPassword().equals(userDTO.getPassword());
     }
 }

@@ -1,5 +1,6 @@
 package com.example.springbootc51.dao.inMemory;
 
+import com.example.springbootc51.dao.DAO;
 import com.example.springbootc51.entity.User;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
@@ -9,8 +10,7 @@ import java.util.List;
 
 @Component
 @Repository
-public class InMemoryUserDAO {
-
+public class InMemoryUserDAO implements DAO<User> {
     private List<User> userList = new ArrayList<>();;
 
     //add test user
@@ -20,6 +20,7 @@ public class InMemoryUserDAO {
         userList.add(new User(3, "user3", "user3", "user3@gmail.com"));
     }
 
+    @Override
     public List<User> findAll() {
         return userList;
     }
@@ -28,16 +29,19 @@ public class InMemoryUserDAO {
         return userList.stream().filter(user -> user.getId() == id).findAny().orElse(null);
     }
 
+    @Override
     public void save(User user) {
         user.setId(userList.size() + 1);
         userList.add(user);
     }
 
+    @Override
     public void update(User user) {
         int useUpdateId = Math.toIntExact(user.getId()) - 1;
         userList.set(useUpdateId, user);
     }
 
+    @Override
     public void remove(User user) {
         userList.removeIf(p -> p.getId() == user.getId());
     }
