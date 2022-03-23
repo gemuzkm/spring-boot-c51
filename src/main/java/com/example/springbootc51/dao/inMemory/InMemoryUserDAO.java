@@ -15,9 +15,9 @@ public class InMemoryUserDAO implements DAO<User> {
 
     //add test user
     {
-        userList.add(new User(1, "user1", "user1", "user1@gmail.com"));
-        userList.add(new User(2, "user2", "user2", "user2@gmail.com"));
-        userList.add(new User(3, "user3", "user3", "user3@gmail.com"));
+        userList.add(new User("user1", "user1", "user1@gmail.com"));
+        userList.add(new User("user2", "user2", "user2@gmail.com"));
+        userList.add(new User("user3", "user3", "user3@gmail.com"));
     }
 
     @Override

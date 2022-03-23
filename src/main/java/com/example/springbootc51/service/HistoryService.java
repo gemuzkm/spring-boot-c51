@@ -17,9 +17,9 @@ public class HistoryService {
 
     public void save(HttpSession session, Operation operation) {
         User user = (User) session.getAttribute("user");
-        List<Operation> operationList = user.getOperationList();
-        operationList.add(operation);
-        user.setOperationList(operationList);
+//        List<Operation> operationList = user.getOperationList();
+//        operationList.add(operation);
+//        user.setOperationList(operationList);
 
 //        jpaUserDAO.update(user);
     }

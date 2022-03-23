@@ -4,13 +4,10 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.Size;
-import java.util.List;
 
 public class User {
 
-//	@NotBlank // " " true
-//	@NotEmpty //"    " false
-
+	private static long index = 1;
 	private long id;
 
 	@NotEmpty(message = "name empty")
@@ -25,13 +22,12 @@ public class User {
 	@Email(message = "not valid email")
 	private String email;
 
-	private List<Operation> operationList;
-
 	public User() {
 	}
 
-	public User(long id, String name, String password, String email) {
-		this.id = id;
+	public User(String name, String password, String email) {
+		id = index;
+		index++;
 		this.name = name;
 		this.password = password;
 		this.email = email;
@@ -67,13 +63,5 @@ public class User {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public List<Operation> getOperationList() {
-		return operationList;
-	}
-
-	public void setOperationList(List<Operation> operationList) {
-		this.operationList = operationList;
 	}
 }
