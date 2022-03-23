@@ -10,6 +10,7 @@ import java.util.List;
 public class InMemoryUserDAO {
     private List<User> userList;
 
+    //add test user
     {
         userList = new ArrayList<>();
         userList.add(new User(1, "user1", "user1", "user1@gmail.com"));
