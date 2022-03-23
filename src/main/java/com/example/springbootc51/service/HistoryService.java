@@ -27,6 +27,6 @@ public class HistoryService {
     }
 
     public void save(User user, OperationDTO operationDTO) {
-
+        inMemoryHistoryDAO.save(user, OperationDTO);
     }
 }

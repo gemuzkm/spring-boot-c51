@@ -4,6 +4,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 public class UserDTO {
 
+    private long id;
+
     @NotEmpty(message = "name empty")
     private String name;
 
@@ -16,6 +18,14 @@ public class UserDTO {
     public UserDTO(String name, String password) {
         this.name = name;
         this.password = password;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {

@@ -1,5 +1,6 @@
 package com.example.springbootc51.controller;
 
+import com.example.springbootc51.converter.OperationDTOConverter;
 import com.example.springbootc51.dao.inMemory.InMemoryHistoryDAO;
 import com.example.springbootc51.dto.OperationDTO;
 import com.example.springbootc51.entity.Operation;
@@ -33,6 +34,9 @@ public class CalculatorController {
     @Autowired
     private СalculatorService сalculatorService;
 
+    @Autowired
+    OperationDTOConverter operationDTOConverter;
+
     @GetMapping
     public String calc(@ModelAttribute("calcOperation") Operation operation) {
         return "calculator/calc";
@@ -47,11 +51,12 @@ public class CalculatorController {
         }
 
         User user = (User) session.getAttribute("user");
+        Operation operation = operationDTOConverter.operationDTOtoHistory(operationDTO);
+        operation.setResult(сalculatorService.getResult(operation));
 
-        historyService.save(user, operationDTO);
+        historyService.save(user, operation);
 
-
-       model.addAttribute("msgResult", сalculatorService.getResult(operation));
+       model.addAttribute("msgResult", operation.getResult());
         return "calculator/calc";
     }
 
