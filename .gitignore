@@ -20,8 +20,8 @@ target/
 *.ipr
 .idea/*
 .idea/**
-*.mvn/*
-*.mvn/**
+.mvn/*
+.mvn/**
 
 
 ### NetBeans ###
