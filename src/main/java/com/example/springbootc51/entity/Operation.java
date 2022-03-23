@@ -15,6 +15,8 @@ public class Operation {
     @NotNull(message = "No operator is supported")
     private String operation;
 
+    private Double result;
+
     public Operation() {
     }
 
@@ -58,12 +60,22 @@ public class Operation {
         this.operation = operation;
     }
 
+    public Double getResult() {
+        return result;
+    }
+
+    public void setResult(Double result) {
+        this.result = result;
+    }
+
     @Override
     public String toString() {
         return "Operation{" +
-                "value1=" + value1 +
+                "id=" + id +
+                ", value1=" + value1 +
                 ", value2=" + value2 +
                 ", operation='" + operation + '\'' +
+                ", result=" + result +
                 '}';
     }
 }

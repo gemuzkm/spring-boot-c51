@@ -1,6 +1,7 @@
 package com.example.springbootc51.controller;
 
 import com.example.springbootc51.dao.inMemory.InMemoryHistoryDAO;
+import com.example.springbootc51.dto.OperationDTO;
 import com.example.springbootc51.entity.Operation;
 import com.example.springbootc51.entity.User;
 import com.example.springbootc51.service.HistoryService;
@@ -24,13 +25,13 @@ import java.util.List;
 public class CalculatorController {
 
     @Autowired
-    InMemoryHistoryDAO inMemoryHistoryDAO;
+    private InMemoryHistoryDAO inMemoryHistoryDAO;
 
     @Autowired
-    HistoryService historyService;
+    private HistoryService historyService;
 
     @Autowired
-    СalculatorService сalculatorService;
+    private СalculatorService сalculatorService;
 
     @GetMapping
     public String calc(@ModelAttribute("calcOperation") Operation operation) {
@@ -38,16 +39,19 @@ public class CalculatorController {
     }
 
     @PostMapping
-    public String result(@Valid @ModelAttribute("calcOperation")  Operation operation,
+    public String result(@Valid @ModelAttribute("calcOperation") OperationDTO operationDTO,
                          BindingResult bindingResult, HttpSession session, Model model) {
 
         if (bindingResult.hasErrors()) {
             return "calculator/calc";
         }
 
-        historyService.save(session, operation);
+        User user = (User) session.getAttribute("user");
 
-//       model.addAttribute("msgResult", сalculatorService.getResult(operation));
+        historyService.save(user, operationDTO);
+
+
+       model.addAttribute("msgResult", сalculatorService.getResult(operation));
         return "calculator/calc";
     }
 
