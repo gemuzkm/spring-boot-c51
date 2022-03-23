@@ -25,8 +25,4 @@ public class HistoryService {
 
 //        jpaUserDAO.update(user);
     }
-
-    public void save(User user, OperationDTO operationDTO) {
-        inMemoryHistoryDAO.save(user, OperationDTO);
-    }
 }
