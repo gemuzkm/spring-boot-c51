@@ -51,10 +51,13 @@ public class CalculatorController {
         }
 
         User user = (User) session.getAttribute("user");
-        Operation operation = operationDTOConverter.operationDTOtoHistory(operationDTO);
+        Operation operation = new Operation();
+        operation = operationDTOConverter.operationDTOtoOperation(operationDTO);
         operation.setResult(сalculatorService.getResult(operation));
+        operation.setId(inMemoryHistoryDAO.findAll(user).size() + 1);
+        operation.setUser(user);
 
-        historyService.save(user, operation);
+        historyService.save(operation);
 
        model.addAttribute("msgResult", operation.getResult());
         return "calculator/calc";

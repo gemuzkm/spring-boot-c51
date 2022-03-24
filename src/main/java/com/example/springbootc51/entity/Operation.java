@@ -17,6 +17,8 @@ public class Operation {
 
     private Double result;
 
+    private User user;
+
     public Operation() {
     }
 
@@ -66,6 +68,14 @@ public class Operation {
 
     public void setResult(Double result) {
         this.result = result;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
