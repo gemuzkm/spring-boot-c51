@@ -34,15 +34,6 @@ public class InMemoryHistoryDAO implements DAO<Operation> {
                 listOperation.get(i).setUser(operation.getUser());
             }
         }
-
-        for (Operation item : listOperation) {
-            if (item.getId() == operation.getId()) {
-                item.setValue1(operation.getValue1());
-                item.setValue2(operation.getValue2());
-                item.setResult(operation.getResult());
-                item.setUser(operation.getUser());
-            }
-        }
     }
 
     @Override
