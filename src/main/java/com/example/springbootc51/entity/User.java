@@ -1,12 +1,18 @@
 package com.example.springbootc51.entity;
 
+
+
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+@Entity
+@Table(name = "users")
 public class User {
 
-	private static long index = 1;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
 	@NotNull(message = "name empty")
@@ -24,9 +30,8 @@ public class User {
 	public User() {
 	}
 
-	public User(String name, String password, String email) {
-		id = index;
-		index++;
+	public User(long id, String name, String password, String email) {
+		this.id = id;
 		this.name = name;
 		this.password = password;
 		this.email = email;

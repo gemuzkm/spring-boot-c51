@@ -5,6 +5,7 @@ import com.example.springbootc51.dao.inMemory.InMemoryHistoryDAO;
 import com.example.springbootc51.dto.OperationDTO;
 import com.example.springbootc51.entity.Operation;
 import com.example.springbootc51.entity.User;
+import com.example.springbootc51.repository.UserRepository;
 import com.example.springbootc51.service.HistoryService;
 import com.example.springbootc51.service.СalculatorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ public class CalculatorController {
 
     @Autowired
     private InMemoryHistoryDAO inMemoryHistoryDAO;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private HistoryService historyService;
