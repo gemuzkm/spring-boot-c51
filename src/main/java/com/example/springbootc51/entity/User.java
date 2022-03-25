@@ -18,7 +18,7 @@ public class User {
 	private String password;
 
 	@NotNull(message = "email empty")
-	@Pattern(regexp = "^(.+)@(\\S+) $", message = "not valid email")
+	@Pattern(regexp = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\\\.[A-Za-z0-9-]+)*(\\\\.[A-Za-z]{2,})$", message = "not valid email")
 	private String email;
 
 	public User() {
