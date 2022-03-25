@@ -1,8 +1,7 @@
 package com.example.springbootc51.entity;
 
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty;
-
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 public class User {
@@ -10,16 +9,16 @@ public class User {
 	private static long index = 1;
 	private long id;
 
-	@NotEmpty(message = "name empty")
+	@NotNull(message = "name empty")
 	@Size(min = 3, max = 50, message = "name should be between 3 and 50 characters")
 	private String name;
 
-	@NotEmpty(message = "password empty")
+	@NotNull(message = "password empty")
 	@Size(min = 3, max = 50, message = "password should be between 3 and 50 characters")
 	private String password;
 
-	@NotEmpty(message = "email empty")
-	@Email(message = "not valid email")
+	@NotNull(message = "email empty")
+	@Pattern(regexp = "^(.+)@(\\S+) $", message = "not valid email")
 	private String email;
 
 	public User() {
