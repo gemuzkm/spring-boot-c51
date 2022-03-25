@@ -6,10 +6,7 @@ import com.example.springbootc51.entity.User;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Component
 @Repository
@@ -29,14 +26,29 @@ public class InMemoryHistoryDAO implements DAO<Operation> {
 
     @Override
     public void update(Operation operation) {
+        for (int i = 0; i < listOperation.size(); i++) {
+            if (listOperation.get(i).getId() == operation.getId()) {
+                listOperation.get(i).setValue1(operation.getValue1());
+                listOperation.get(i).setValue2(operation.getValue2());
+                listOperation.get(i).setResult(operation.getResult());
+                listOperation.get(i).setUser(operation.getUser());
+            }
+        }
 
+        for (Operation item : listOperation) {
+            if (item.getId() == operation.getId()) {
+                item.setValue1(operation.getValue1());
+                item.setValue2(operation.getValue2());
+                item.setResult(operation.getResult());
+                item.setUser(operation.getUser());
+            }
+        }
     }
 
     @Override
     public List<Operation> findAll() {
-        return null;
+        return listOperation;
     }
-
 
     public List<Operation> findAll(User user) {
         List<Operation> userHistory = new ArrayList<>();
