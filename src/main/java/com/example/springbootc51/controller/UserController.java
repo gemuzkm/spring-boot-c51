@@ -28,13 +28,21 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public String showAllUsers(Model model) {
+    public String showAllUsers(Model model, HttpSession session) {
+        if (session.getAttribute("user") == null) {
+            return "redirect:/";
+        }
+
         model.addAttribute("users", inMemoryUserDAO.findAll());
         return "user/users";
     }
 
     @GetMapping("user/logout")
     public String logout(HttpSession session) {
+        if (session.getAttribute("user") == null) {
+            return "redirect:/";
+        }
+
         session.invalidate();
         return "redirect:/";
     }
@@ -84,7 +92,11 @@ public class UserController {
     }
 
     @GetMapping("user/{id}/edit")
-    public String edit(Model model, @PathVariable("id") long id) {
+    public String edit(Model model, @PathVariable("id") long id, HttpSession session) {
+        if (session.getAttribute("user") == null) {
+            return "redirect:/";
+        }
+
         model.addAttribute("user", inMemoryUserDAO.findById(id));
 
         return "user/edit";

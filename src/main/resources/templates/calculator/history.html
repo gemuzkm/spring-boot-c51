@@ -12,9 +12,14 @@
     History is empty
 </div>
 
-<div th:each="operation : ${userHistory}">
-    <td th:text="${operation.value1} + ' ' + ${operation.operation} + ' ' + ${operation.value2} + ' = ' + ${operation.getResult()}">operation</td>
-</div>
-
+<table>
+    <div th:each="operation : ${userHistory}">
+        <tr>
+            <td th:text="${operation.value1} + ' ' + ${operation.operation} + ' ' + ${operation.value2} + ' = ' + ${operation.getResult()}">
+                operation
+            </td>
+        </tr>
+    </div>
+</table>
 </body>
 </html>

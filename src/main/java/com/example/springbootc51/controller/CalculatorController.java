@@ -11,10 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -38,15 +35,21 @@ public class CalculatorController {
     OperationDTOConverter operationDTOConverter;
 
     @GetMapping
-    public String calc(@ModelAttribute("calcOperation") Operation operation) {
-        return "calculator/calc";
+    public String calc(@ModelAttribute("calcOperation") Operation operation, HttpSession session) {
+        if (session.getAttribute("user") == null) {
+            return "redirect:/";
+        } else {
+            return "calculator/calc";
+        }
     }
 
     @PostMapping
     public String result(@Valid @ModelAttribute("calcOperation") OperationDTO operationDTO,
                          BindingResult bindingResult, HttpSession session, Model model) {
 
-        if (bindingResult.hasErrors()) {
+        if (session.getAttribute("user") == null) {
+            return "redirect:/";
+        } else if (bindingResult.hasErrors()) {
             return "calculator/calc";
         }
 
@@ -59,7 +62,7 @@ public class CalculatorController {
 
         historyService.save(operation);
 
-       model.addAttribute("msgResult", operation.getResult());
+        model.addAttribute("msgResult", operation.getResult());
         return "calculator/calc";
     }
 
