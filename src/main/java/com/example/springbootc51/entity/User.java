@@ -1,7 +1,5 @@
 package com.example.springbootc51.entity;
 
-
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -24,7 +22,7 @@ public class User {
 	private String password;
 
 	@NotNull(message = "email empty")
-	@Pattern(regexp = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\\\.[A-Za-z0-9-]+)*(\\\\.[A-Za-z]{2,})$", message = "not valid email")
+	@Pattern(regexp = "^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$", message = "not valid email")
 	private String email;
 
 	public User() {
@@ -32,6 +30,12 @@ public class User {
 
 	public User(long id, String name, String password, String email) {
 		this.id = id;
+		this.name = name;
+		this.password = password;
+		this.email = email;
+	}
+
+	public User(String name, String password, String email) {
 		this.name = name;
 		this.password = password;
 		this.email = email;

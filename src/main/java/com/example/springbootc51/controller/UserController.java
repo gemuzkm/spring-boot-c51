@@ -30,6 +30,12 @@ public class UserController {
 
     @GetMapping("/")
     public String index() {
+        if(!userRepository.findById(1L).isPresent()) {
+            userRepository.save(new User("user1", "user1", "user1@gmail.com"));
+            userRepository.save(new User("user2", "user2", "user2@gmail.com"));
+            userRepository.save(new User("user3", "user3", "user3@gmail.com"));
+        }
+
         return "user/index";
     }
 
@@ -78,7 +84,8 @@ public class UserController {
             return "user/reg";
         }
 
-        inMemoryUserDAO.save(user);
+//        inMemoryUserDAO.save(user);
+        userRepository.save(user);
         return "redirect:/";
     }
 
