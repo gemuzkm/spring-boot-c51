@@ -2,7 +2,9 @@ package com.example.springbootc51.controller;
 
 import com.example.springbootc51.dao.inMemory.InMemoryUserDAO;
 import com.example.springbootc51.dto.UserDTO;
+import com.example.springbootc51.entity.Operation;
 import com.example.springbootc51.entity.User;
+import com.example.springbootc51.repository.UserRepository;
 import com.example.springbootc51.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,15 +14,19 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Controller
 public class UserController {
 
     @Autowired
-    UserValidator userValidator;
+    private UserValidator userValidator;
 
     @Autowired
-    InMemoryUserDAO inMemoryUserDAO;
+    private InMemoryUserDAO inMemoryUserDAO;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping("/")
     public String index() {
@@ -49,7 +55,13 @@ public class UserController {
 
     @GetMapping("user/{id}")
     public String showById(@PathVariable("id") long id, Model model) {
-        model.addAttribute("user", inMemoryUserDAO.findById(id));
+//        model.addAttribute("user", inMemoryUserDAO.findById(id));
+
+        Optional<User> optionalUser = userRepository.findById(id);
+        User user = optionalUser.orElse(null);
+
+        model.addAttribute("user", user);
+
         return "user/user";
     }
 
