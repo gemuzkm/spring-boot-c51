@@ -2,7 +2,6 @@ package com.example.springbootc51.controller;
 
 import com.example.springbootc51.dao.inMemory.InMemoryUserDAO;
 import com.example.springbootc51.dto.UserDTO;
-import com.example.springbootc51.entity.Operation;
 import com.example.springbootc51.entity.User;
 import com.example.springbootc51.repository.UserRepository;
 import com.example.springbootc51.validator.UserValidator;
@@ -30,7 +29,8 @@ public class UserController {
 
     @GetMapping("/")
     public String index() {
-        if(!userRepository.findById(1L).isPresent()) {
+        //add test data user
+        if (!userRepository.findById(1L).isPresent()) {
             userRepository.save(new User("user1", "user1", "user1@gmail.com"));
             userRepository.save(new User("user2", "user2", "user2@gmail.com"));
             userRepository.save(new User("user3", "user3", "user3@gmail.com"));
@@ -45,7 +45,8 @@ public class UserController {
             return "redirect:/";
         }
 
-        model.addAttribute("users", inMemoryUserDAO.findAll());
+        model.addAttribute("users", userRepository.findAll());
+
         return "user/users";
     }
 
@@ -56,16 +57,15 @@ public class UserController {
         }
 
         session.invalidate();
+
         return "redirect:/";
     }
 
     @GetMapping("user/{id}")
     public String showById(@PathVariable("id") long id, Model model) {
-//        model.addAttribute("user", inMemoryUserDAO.findById(id));
 
         Optional<User> optionalUser = userRepository.findById(id);
         User user = optionalUser.orElse(null);
-
         model.addAttribute("user", user);
 
         return "user/user";
@@ -84,8 +84,14 @@ public class UserController {
             return "user/reg";
         }
 
-//        inMemoryUserDAO.save(user);
+        if (userRepository.findByName(user.getName()).isPresent()) {
+            model.addAttribute("msgerror", "user exists");
+
+            return "user/reg";
+        }
+
         userRepository.save(user);
+
         return "redirect:/";
     }
 
@@ -100,9 +106,11 @@ public class UserController {
 
         if (bindingResult.hasErrors()) {
             return "user/login";
-        } else if (userValidator.isValid(userDTO))  {
-            session.setAttribute("user", inMemoryUserDAO.findByUsername(userDTO.getName()));
-        } else  {
+        } else if (userValidator.isValid(userDTO)) {
+            Optional<User> optionalUser = userRepository.findByName(userDTO.getName());
+            User user = optionalUser.orElse(null);
+            session.setAttribute("user", user);
+        } else {
             model.addAttribute("msgerror", "invalid user/login");
             return "user/login";
         }
@@ -115,8 +123,8 @@ public class UserController {
         if (session.getAttribute("user") == null) {
             return "redirect:/";
         }
-
-        model.addAttribute("user", inMemoryUserDAO.findById(id));
+        Optional<User> byId = userRepository.findById(id);
+        model.addAttribute("user", byId.orElse(null));
 
         return "user/edit";
     }
@@ -131,16 +139,20 @@ public class UserController {
         }
 
         session.setAttribute("user", user);
-        inMemoryUserDAO.update(user);
+        userRepository.save(user);
 
         return "user/index";
     }
 
     @DeleteMapping("user/{id}")
     public String delete(@PathVariable("id") long id, HttpSession session) {
-        User user = inMemoryUserDAO.findById(id);
-        inMemoryUserDAO.remove(user);
-        session.invalidate();
+        Optional<User> byId = userRepository.findById(id);
+        User user = byId.orElse(null);
+        if (user != null) {
+            userRepository.delete(user);
+            session.invalidate();
+        }
+
         return "user/index";
     }
 }

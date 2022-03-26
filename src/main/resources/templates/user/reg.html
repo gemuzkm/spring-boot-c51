@@ -7,6 +7,9 @@
 </head>
 <body>
 <div th:insert="fragment/menu :: top"></div>
+<div th:if="${msgerror}">
+    <p style="color:red" th:text="${msgerror}">user exists</p>
+</div>
 
 <form th:method="POST" th:action="@{/user/reg}" th:object="${user}">
     <div>
