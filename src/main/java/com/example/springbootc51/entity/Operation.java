@@ -1,9 +1,13 @@
 package com.example.springbootc51.entity;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+@Entity
+@Table(name="history")
 public class Operation {
-    private static long index = 1;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @NotNull(message = "invalid value1")
@@ -17,14 +21,17 @@ public class Operation {
 
     private Double result;
 
+    @ManyToOne(cascade = {
+            CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,
+            CascadeType.REFRESH
+    })
+    @JoinColumn(name = "user_id")
     private User user;
 
     public Operation() {
     }
 
     public Operation(Double value1, Double value2, String operation) {
-        id = index;
-        index++;
         this.value1 = value1;
         this.value2 = value2;
         this.operation = operation;
