@@ -4,8 +4,6 @@ import com.example.springbootc51.converter.OperationDTOConverter;
 import com.example.springbootc51.dto.OperationDTO;
 import com.example.springbootc51.entity.Operation;
 import com.example.springbootc51.entity.User;
-import com.example.springbootc51.repository.OperationRepository;
-import com.example.springbootc51.repository.UserRepository;
 import com.example.springbootc51.service.OperationService;
 import com.example.springbootc51.service.СalculatorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 @RequestMapping("/calc")
@@ -58,6 +55,7 @@ public class CalculatorController {
         operationService.save(user, operation);
 
         model.addAttribute("msgResult", operation.getResult());
+
         return "calculator/calc";
     }
 
@@ -66,8 +64,9 @@ public class CalculatorController {
         if (session.getAttribute("user") == null) {
             return "redirect:/";
         } else {
-//            List<Operation> operationList = inMemoryHistoryDAO.findAll((User) session.getAttribute("user"));
-//            model.addAttribute("userHistory", operationList);
+            User user = (User) session.getAttribute("user");
+            model.addAttribute("userHistory", user.getOperationList());
+
             return "calculator/history";
         }
     }

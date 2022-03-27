@@ -57,6 +57,4 @@ public class OperationDTO {
     public void setOperation(String operation) {
         this.operation = operation;
     }
-
-
 }
