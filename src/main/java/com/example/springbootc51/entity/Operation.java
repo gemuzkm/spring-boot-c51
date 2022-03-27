@@ -1,10 +1,15 @@
 package com.example.springbootc51.entity;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="history")
+@Data
+@NoArgsConstructor
 public class Operation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,62 +30,59 @@ public class Operation {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Operation() {
-    }
-
     public Operation(Double value1, Double value2, String operation) {
         this.value1 = value1;
         this.value2 = value2;
         this.operation = operation;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public Double getValue1() {
-        return value1;
-    }
-
-    public void setValue1(Double value1) {
-        this.value1 = value1;
-    }
-
-    public Double getValue2() {
-        return value2;
-    }
-
-    public void setValue2(Double value2) {
-        this.value2 = value2;
-    }
-
-    public String getOperation() {
-        return operation;
-    }
-
-    public void setOperation(String operation) {
-        this.operation = operation;
-    }
-
-    public Double getResult() {
-        return result;
-    }
-
-    public void setResult(Double result) {
-        this.result = result;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
+//    public long getId() {
+//        return id;
+//    }
+//
+//    public void setId(long id) {
+//        this.id = id;
+//    }
+//
+//    public Double getValue1() {
+//        return value1;
+//    }
+//
+//    public void setValue1(Double value1) {
+//        this.value1 = value1;
+//    }
+//
+//    public Double getValue2() {
+//        return value2;
+//    }
+//
+//    public void setValue2(Double value2) {
+//        this.value2 = value2;
+//    }
+//
+//    public String getOperation() {
+//        return operation;
+//    }
+//
+//    public void setOperation(String operation) {
+//        this.operation = operation;
+//    }
+//
+//    public Double getResult() {
+//        return result;
+//    }
+//
+//    public void setResult(Double result) {
+//        this.result = result;
+//    }
+//
+//    public User getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
 
     @Override
     public String toString() {
