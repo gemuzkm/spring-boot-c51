@@ -4,6 +4,7 @@ import com.example.springbootc51.converter.OperationDTOConverter;
 import com.example.springbootc51.dto.OperationDTO;
 import com.example.springbootc51.entity.Operation;
 import com.example.springbootc51.entity.User;
+import com.example.springbootc51.repository.OperationRepository;
 import com.example.springbootc51.service.OperationService;
 import com.example.springbootc51.service.СalculatorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,9 @@ public class CalculatorController {
 
     @Autowired
     private OperationDTOConverter operationDTOConverter;
+
+    @Autowired
+    private OperationRepository operationRepository;
 
     @GetMapping
     public String calc(@ModelAttribute("calcOperation") Operation operation, HttpSession session) {
@@ -65,7 +69,8 @@ public class CalculatorController {
             return "redirect:/";
         } else {
             User user = (User) session.getAttribute("user");
-            model.addAttribute("userHistory", user.getOperationList());
+//            model.addAttribute("userHistory", user.getOperationList());
+            model.addAttribute("userHistory",operationRepository.findAllByUser(user));
 
             return "calculator/history";
         }
