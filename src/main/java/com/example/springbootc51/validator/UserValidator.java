@@ -1,6 +1,5 @@
 package com.example.springbootc51.validator;
 
-import com.example.springbootc51.dao.inMemory.InMemoryUserDAO;
 import com.example.springbootc51.dto.UserDTO;
 import com.example.springbootc51.entity.User;
 import com.example.springbootc51.repository.UserRepository;
@@ -13,18 +12,14 @@ import java.util.Optional;
 public class UserValidator {
 
     @Autowired
-    private InMemoryUserDAO inMemoryUserDAO;
-
-    @Autowired
     private UserRepository userRepository;
 
     public boolean isValid(UserDTO userDTO) {
-        return isValidUserName(userDTO) && isValidUserPassword(userDTO);
+        return isValidUserName(userDTO) & isValidUserPassword(userDTO);
     }
 
     private boolean isValidUserName(UserDTO userDTO) {
-        Optional<User> byUsername = userRepository.findByName(userDTO.getName());
-        return byUsername.isPresent();
+        return userRepository.findByName(userDTO.getName()).isPresent();
     }
 
     private boolean isValidUserPassword(UserDTO userDTO) {
