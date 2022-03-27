@@ -11,7 +11,6 @@ import java.util.*;
 @Component
 @Repository
 public class InMemoryHistoryDAO implements DAO<Operation> {
-//    private static Map<Long, List<Operation>> mapOperation = new HashMap<>();
     private static List<Operation> listOperation = new ArrayList<>();
 
     @Override
