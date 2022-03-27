@@ -75,4 +75,25 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	public List<Operation> getOperationList() {
+		return operationList;
+	}
+
+	public void setOperationList(List<Operation> operationList) {
+		if (operationList != null) {
+			operationList.forEach(o -> o.setUser(this));
+		}
+		this.operationList = operationList;
+	}
+
+	@Override
+	public String toString() {
+		return "User{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", password='" + password + '\'' +
+				", email='" + email + '\'' +
+				'}';
+	}
 }

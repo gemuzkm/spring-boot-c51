@@ -1,6 +1,5 @@
 package com.example.springbootc51.controller;
 
-import com.example.springbootc51.dao.inMemory.InMemoryUserDAO;
 import com.example.springbootc51.dto.UserDTO;
 import com.example.springbootc51.entity.User;
 import com.example.springbootc51.repository.UserRepository;
@@ -20,9 +19,6 @@ public class UserController {
 
     @Autowired
     private UserValidator userValidator;
-
-    @Autowired
-    private InMemoryUserDAO inMemoryUserDAO;
 
     @Autowired
     private UserRepository userRepository;
