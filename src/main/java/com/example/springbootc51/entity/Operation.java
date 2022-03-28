@@ -36,54 +36,6 @@ public class Operation {
         this.operation = operation;
     }
 
-//    public long getId() {
-//        return id;
-//    }
-//
-//    public void setId(long id) {
-//        this.id = id;
-//    }
-//
-//    public Double getValue1() {
-//        return value1;
-//    }
-//
-//    public void setValue1(Double value1) {
-//        this.value1 = value1;
-//    }
-//
-//    public Double getValue2() {
-//        return value2;
-//    }
-//
-//    public void setValue2(Double value2) {
-//        this.value2 = value2;
-//    }
-//
-//    public String getOperation() {
-//        return operation;
-//    }
-//
-//    public void setOperation(String operation) {
-//        this.operation = operation;
-//    }
-//
-//    public Double getResult() {
-//        return result;
-//    }
-//
-//    public void setResult(Double result) {
-//        this.result = result;
-//    }
-//
-//    public User getUser() {
-//        return user;
-//    }
-//
-//    public void setUser(User user) {
-//        this.user = user;
-//    }
-
     @Override
     public String toString() {
         return "Operation{" +
