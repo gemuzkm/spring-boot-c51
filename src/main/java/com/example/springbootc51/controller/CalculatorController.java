@@ -20,17 +20,20 @@ import javax.validation.Valid;
 @RequestMapping("/calc")
 public class CalculatorController {
 
-    @Autowired
-    private OperationService operationService;
+    private final OperationService operationService;
 
-    @Autowired
-    private СalculatorService сalculatorService;
+    private final СalculatorService сalculatorService;
 
-    @Autowired
-    private OperationDTOConverter operationDTOConverter;
+    private final OperationDTOConverter operationDTOConverter;
 
-    @Autowired
-    private OperationRepository operationRepository;
+    private final OperationRepository operationRepository;
+
+    public CalculatorController(OperationService operationService, OperationRepository operationRepository, OperationDTOConverter operationDTOConverter, СalculatorService сalculatorService) {
+        this.operationService = operationService;
+        this.operationRepository = operationRepository;
+        this.operationDTOConverter = operationDTOConverter;
+        this.сalculatorService = сalculatorService;
+    }
 
     @GetMapping
     public String calc(@ModelAttribute("calcOperation") Operation operation, HttpSession session) {
