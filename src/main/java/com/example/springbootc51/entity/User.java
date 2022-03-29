@@ -14,45 +14,52 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class User {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+    private static final String MSG_NAME_EMPTY = "name empty";
+    private static final String MSG_NAME_3_TO_50_CHARACTERS = "name should be between 3 and 50 characters";
+    private static final String MSG_PASSWORD_EMPTY = "password empty";
+    private static final String MSG_PASSWORD_3_TO_50_CHARACTERS = "password should be between 3 and 50 characters";
+    private static final String MSG_EMAIL_EMPTY = "email empty";
+    private static final String MSG_EMAIL_NOT_VALID = "not valid email";
 
-	@NotNull(message = "name empty")
-	@Size(min = 3, max = 50, message = "name should be between 3 and 50 characters")
-	private String name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
-	@NotNull(message = "password empty")
-	@Size(min = 3, max = 50, message = "password should be between 3 and 50 characters")
-	private String password;
+    @NotNull(message = MSG_NAME_EMPTY)
+    @Size(min = 3, max = 50, message = MSG_NAME_3_TO_50_CHARACTERS)
+    private String name;
 
-	@NotNull(message = "email empty")
-	@Pattern(regexp = "^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$", message = "not valid email")
-	private String email;
+    @NotNull(message = MSG_PASSWORD_EMPTY)
+    @Size(min = 3, max = 50, message = MSG_PASSWORD_3_TO_50_CHARACTERS)
+    private String password;
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private List<Operation> operationList;
+    @NotNull(message = MSG_EMAIL_EMPTY)
+    @Pattern(regexp = "^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$", message = MSG_EMAIL_NOT_VALID)
+    private String email;
 
-	public User(String name, String password, String email) {
-		this.name = name;
-		this.password = password;
-		this.email = email;
-	}
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Operation> operationList;
 
-	public void setOperationList(List<Operation> operationList) {
-		if (operationList != null) {
-			operationList.forEach(o -> o.setUser(this));
-		}
-		this.operationList = operationList;
-	}
+    public User(String name, String password, String email) {
+        this.name = name;
+        this.password = password;
+        this.email = email;
+    }
 
-	@Override
-	public String toString() {
-		return "User{" +
-				"id=" + id +
-				", name='" + name + '\'' +
-				", password='" + password + '\'' +
-				", email='" + email + '\'' +
-				'}';
-	}
+    public void setOperationList(List<Operation> operationList) {
+        if (operationList != null) {
+            operationList.forEach(o -> o.setUser(this));
+        }
+        this.operationList = operationList;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }

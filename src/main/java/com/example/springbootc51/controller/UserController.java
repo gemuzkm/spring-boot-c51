@@ -16,6 +16,8 @@ import java.util.Optional;
 
 @Controller
 public class UserController {
+    private static final String MSG_USER_EXITS = "user exists";
+    private static final String MSG_USER_LOGIN_INVALID = "invalid user/login";
 
     @Autowired
     private UserValidator userValidator;
@@ -81,7 +83,7 @@ public class UserController {
         }
 
         if (userRepository.findByName(user.getName()).isPresent()) {
-            model.addAttribute("msgerror", "user exists");
+            model.addAttribute("msgerror", MSG_USER_EXITS);
 
             return "user/reg";
         }
@@ -107,7 +109,7 @@ public class UserController {
             User user = optionalUser.orElse(null);
             session.setAttribute("user", user);
         } else {
-            model.addAttribute("msgerror", "invalid user/login");
+            model.addAttribute("msgerror", MSG_USER_LOGIN_INVALID);
             return "user/login";
         }
 

@@ -3,16 +3,20 @@ package com.example.springbootc51.dto;
 import javax.validation.constraints.NotNull;
 
 public class OperationDTO {
+    private static final String MSG_INVALID_VALUE1 = "invalid value1";
+    private static final String MSG_INVALID_VALUE2 = "invalid value2";
+    private static final String MSG_NO_OPERATOR_IS_SUPPORT = "No operator is supported";
+
     private static long index = 1;
     private long id;
 
-    @NotNull(message = "invalid value1")
+    @NotNull(message = MSG_INVALID_VALUE1)
     private Double value1;
 
-    @NotNull(message = "invalid value2")
+    @NotNull(message = MSG_INVALID_VALUE2)
     private Double value2;
 
-    @NotNull(message = "No operator is supported")
+    @NotNull(message = MSG_NO_OPERATOR_IS_SUPPORT)
     private String operation;
 
     public OperationDTO() {

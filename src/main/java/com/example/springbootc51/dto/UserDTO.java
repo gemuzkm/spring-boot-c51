@@ -1,15 +1,17 @@
 package com.example.springbootc51.dto;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 public class UserDTO {
+    private static final String MSG_NAME_EMPTY = "name empty";
+    private static final String MSG_PASSWORD_EMPTY = "password empty";
 
     private long id;
 
-    @NotEmpty(message = "name empty")
+    @NotNull(message = MSG_NAME_EMPTY)
     private String name;
 
-    @NotEmpty(message = "password empty")
+    @NotNull(message = MSG_PASSWORD_EMPTY)
     private String password;
 
     public UserDTO() {
