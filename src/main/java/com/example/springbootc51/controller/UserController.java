@@ -19,11 +19,14 @@ public class UserController {
     private static final String MSG_USER_EXITS = "user exists";
     private static final String MSG_USER_LOGIN_INVALID = "invalid user/login";
 
-    @Autowired
-    private UserValidator userValidator;
+    private final UserValidator userValidator;
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public UserController(UserValidator userValidator, UserRepository userRepository) {
+        this.userValidator = userValidator;
+        this.userRepository = userRepository;
+    }
 
     @GetMapping("/")
     public String index() {
